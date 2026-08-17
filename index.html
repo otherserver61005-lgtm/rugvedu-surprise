@@ -96,9 +96,39 @@ h1 {
     top: 20px;
 }
 
-/* Hidden Audio Setup - Keeps playback fully invisible in the background */
 #bgMusic {
     display: none;
+}
+
+/* Typing Effect Container Layout */
+#typingContainer {
+    max-width: 600px;
+    min-height: 120px; /* Prevents layout layout shifting while writing */
+    line-height: 1.8;
+    font-size: 18px;
+    margin: 20px auto;
+    text-align: center;
+    white-space: pre-line; /* Keeps line breaks cleanly rendered */
+}
+
+/* Blinking cursor effect */
+.cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: #fff;
+    margin-left: 4px;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#foreverText {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    margin-top: 30px;
 }
 
 .heart {
@@ -118,8 +148,6 @@ h1 {
 </head>
 <body>
 
-<!-- INVISIBLE BACKGROUND AUDIO ENGINE -->
-<!-- Added autoplay and loop fallback tags natively -->
 <audio id="bgMusic" loop>
     <source src="song.mp3" type="audio/mpeg">
 </audio>
@@ -127,7 +155,6 @@ h1 {
 <div id="page1" class="page active">
     <h1>RUGVEDU 🫀</h1>
     <p>The prettiest girl ever ❤️</p>
-    <!-- Triggers interactive audio initialization transparently -->
     <button class="btn" onclick="startExperience()">Enter 🌷</button>
 </div>
 
@@ -161,22 +188,29 @@ h1 {
 
 <div id="page5" class="page">
     <h1>For RUGVEDU ❤️</h1>
-    <p style="max-width:600px; line-height:1.8; font-size: 18px; margin-top: 20px;">
-        No matter where life takes us, you'll always have a special place in my heart. 
-        Thank you for all the smiles, memories and happiness. 🌷✨
-    </p>
-    <h2 style="margin-top:30px">Forever? ❤️</h2>
+    
+    <!-- Real-time dynamic typewriter injection container -->
+    <div id="typingContainer"><span id="textContent"></span><span class="cursor" id="cursor">|</span></div>
+    
+    <h2 id="foreverText">Forever? ❤️</h2>
 </div>
 
 <script>
+// ==========================================
+// CONFIGURATION: CUSTOMIZE YOUR MESSAGE HERE
+// ==========================================
+const letterMessage = `No matter where life takes us,
+you'll always have a special place in my heart.
+Thank you for all the smiles,
+memories and happiness. 🌷✨`;
+
+const typingSpeed = 50; // Milliseconds per letter character (Lower is faster)
+// ==========================================
+
 const audio = document.getElementById('bgMusic');
 
 function startExperience() {
-    // 1. Instantly fires background music tracks using user's click interaction
-    audio.play().catch(error => {
-        console.log("Autoplay logic blocked or pending: ", error);
-    });
-    // 2. Normal progression flow
+    audio.play().catch(error => console.log("Audio play pending step interaction: ", error));
     showPage(2);
 }
 
@@ -186,14 +220,18 @@ function showPage(num){
     if(targetPage) {
         targetPage.classList.add('active');
         window.scrollTo(0,0);
+        
+        // Trigger typewriter action loop if she enters Page 5
+        if(num === 5) {
+            startTypewriter();
+        }
     }
 }
 
 function yesLove(){
     alert("YAYYYY ❤️😭");
     
-    // SECRET NOTIFICATION ENGINE 
-    // Simply change "YOUR_EMAIL_HERE" to your real email to receive alerts instantly when she clicks YES!
+    // Replace YOUR_EMAIL_HERE with your real email to activate text tracking alerts
     fetch('https://formsubmit.co', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -204,6 +242,28 @@ function yesLove(){
     });
 
     showPage(4); 
+}
+
+// Custom Non-Blocking Typewriter Engine Block
+let charIndex = 0;
+let typewriterTriggered = false;
+
+function startTypewriter() {
+    if (typewriterTriggered) return; // Block duplication triggers if clicked backwards
+    typewriterTriggered = true;
+    typeNextChar();
+}
+
+function typeNextChar() {
+    if (charIndex < letterMessage.length) {
+        document.getElementById("textContent").textContent += letterMessage.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeNextChar, typingSpeed);
+    } else {
+        // Hide trailing layout elements gracefully & reveal final headings
+        document.getElementById("cursor").style.display = "none";
+        document.getElementById("foreverText").style.opacity = "1";
+    }
 }
 
 const noBtn = document.getElementById('noBtn');
@@ -226,7 +286,7 @@ noBtn.addEventListener('touchstart', (e) => {
     moveNoButton();
 });
 
-// Optimized Particle Generator
+// Smooth Performance Floating Background Particles
 setInterval(() => {
     if (document.hidden) return; 
     const heart = document.createElement("div");
