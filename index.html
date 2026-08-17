@@ -96,10 +96,9 @@ h1 {
     top: 20px;
 }
 
-audio {
-    width: 300px;
-    max-width: 90%;
-    margin-top: 20px;
+/* Hidden Audio Setup - Keeps playback fully invisible in the background */
+#bgMusic {
+    display: none;
 }
 
 .heart {
@@ -119,16 +118,22 @@ audio {
 </head>
 <body>
 
+<!-- INVISIBLE BACKGROUND AUDIO ENGINE -->
+<!-- Added autoplay and loop fallback tags natively -->
+<audio id="bgMusic" loop>
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
+
 <div id="page1" class="page active">
     <h1>RUGVEDU 🫀</h1>
     <p>The prettiest girl ever ❤️</p>
-    <button class="btn" onclick="showPage(2)">Enter 🌷</button>
+    <!-- Triggers interactive audio initialization transparently -->
+    <button class="btn" onclick="startExperience()">Enter 🌷</button>
 </div>
 
 <div id="page2" class="page">
     <h1>Beautiful Memories 📸</h1>
     <div class="gallery">
-        <!-- Replace src with your real paths -->
         <img src="cover.jpg" alt="Cover">
         <img src="photo1.jpg" alt="Memory 1">
         <img src="photo2.jpg" alt="Memory 2">
@@ -149,11 +154,8 @@ audio {
 
 <div id="page4" class="page">
     <h1>Wanna Be Yours 🎵</h1>
-    <audio controls>
-        <source src="song.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-    <p style="margin-top:25px; font-size:20px">You'll always be special 🌷🖤</p>
+    <p style="margin-top:25px; font-size:24px; font-style: italic;">"Never thought I'd find someone like you..."</p>
+    <p style="margin-top:15px; font-size:20px">You'll always be special 🌷🖤</p>
     <button class="btn" onclick="showPage(5)">Final ❤️</button>
 </div>
 
@@ -167,6 +169,17 @@ audio {
 </div>
 
 <script>
+const audio = document.getElementById('bgMusic');
+
+function startExperience() {
+    // 1. Instantly fires background music tracks using user's click interaction
+    audio.play().catch(error => {
+        console.log("Autoplay logic blocked or pending: ", error);
+    });
+    // 2. Normal progression flow
+    showPage(2);
+}
+
 function showPage(num){
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const targetPage = document.getElementById('page'+num);
@@ -178,14 +191,25 @@ function showPage(num){
 
 function yesLove(){
     alert("YAYYYY ❤️😭");
-    showPage(4); // Automatically takes her to the song page on agreement!
+    
+    // SECRET NOTIFICATION ENGINE 
+    // Simply change "YOUR_EMAIL_HERE" to your real email to receive alerts instantly when she clicks YES!
+    fetch('https://formsubmit.co', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            Message: "RUGVEDU CLICKED YES! 🎉❤️",
+            Timestamp: new Date().toLocaleString()
+        })
+    });
+
+    showPage(4); 
 }
 
 const noBtn = document.getElementById('noBtn');
 const loveGame = document.getElementById('loveGame');
 
 function moveNoButton() {
-    // Keeps calculation bounded cleanly inside the parent game box element container boundaries
     const maxX = loveGame.clientWidth - noBtn.clientWidth;
     const maxY = loveGame.clientHeight - noBtn.clientHeight;
     
@@ -196,26 +220,23 @@ function moveNoButton() {
     noBtn.style.top = randomY + 'px';
 }
 
-// Fixed for Desktop & Mobile responsiveness 
 noBtn.addEventListener('mouseover', moveNoButton);
 noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); // Prevents clicking on mobile touch devices
+    e.preventDefault(); 
     moveNoButton();
 });
 
-// Optimized memory handling for floating background decorations
+// Optimized Particle Generator
 setInterval(() => {
-    if (document.hidden) return; // Pauses tab engine overhead if backgrounded
+    if (document.hidden) return; 
     const heart = document.createElement("div");
     heart.className = "heart";
     heart.innerHTML = "❤️";
     heart.style.left = Math.random() * 100 + "vw";
-    // Varied sizing for depth illusion layout
     heart.style.transform = `scale(${Math.random() * 0.6 + 0.6})`; 
     
     document.body.appendChild(heart);
     
-    // Explicit clean animation tracking
     heart.addEventListener('animationend', () => {
         heart.remove();
     });
