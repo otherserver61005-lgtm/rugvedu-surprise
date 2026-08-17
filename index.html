@@ -258,7 +258,7 @@ p.subtitle {
     <button class="btn" onclick="showPage(3)">Next ❤️</button>
 </div>
 
-<!-- NEW PAGE 3: INTERACTIVE LOVE GAUGE CHALLENGE -->
+<!-- PAGE 3: INTERACTIVE LOVE GAUGE CHALLENGE -->
 <div id="page3" class="page">
     <h1>How much do you care? 🤔</h1>
     <p class="subtitle">Be honest! Lock in your score below:</p>
@@ -315,7 +315,7 @@ const audio = document.getElementById('bgMusic');
 
 function startExperience() {
     audio.play().catch(e => console.log("Audio contextual lock active: ", e));
-    showPage(2);
+    showPage(2); // Jump seamlessly to the Memories Gallery page layout
 }
 
 function showPage(num){
@@ -334,5 +334,3 @@ function showPage(num){
 function updateSlider(val) {
     document.getElementById("gaugeValue").textContent = val + "%";
 }
-
-function verifySlider() {
