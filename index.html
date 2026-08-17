@@ -231,21 +231,21 @@ p.subtitle {
 </head>
 <body>
 
-<!-- FLOATING CELESTIAL BACKGROUND CANVAS -->
 <div class="stars-bg" id="starsBg"></div>
 
-<audio id="bgMusic" loop>
+<audio id="bgMusic" loop preload="auto">
     <source src="song.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PAGE 1: DEEP GLOW HERO INTRO -->
+<!-- PAGE 1: ENTER SECTION -->
 <div id="page1" class="page active">
     <h1>RUGVEDU 🫀</h1>
     <p class="subtitle">The prettiest girl ever ❤️</p>
-    <button class="btn" onclick="startExperience()">Enter 🌷</button>
+    <!-- RENAME TRIGGER TO FORCE BROWSER TO EVACUATE SCRIPT CACHE -->
+    <button class="btn" onclick="forceLaunchExperience()">Enter 🌷</button>
 </div>
 
-<!-- PAGE 2: POLAROID PHOTO ALBUM -->
+<!-- PAGE 2: POLAROID GRID -->
 <div id="page2" class="page">
     <h1>Beautiful Memories 📸</h1>
     <div class="gallery">
@@ -255,31 +255,31 @@ p.subtitle {
         <div class="polaroid"><img src="photo3.jpg"><p style="color:#333; margin-top:8px; font-size:14px; font-family:cursive;">Smiles 😊</p></div>
         <div class="polaroid"><img src="childhood.jpg"><p style="color:#333; margin-top:8px; font-size:14px; font-family:cursive;">Little You 🍼</p></div>
     </div>
-    <button class="btn" onclick="showPage(3)">Next ❤️</button>
+    <button class="btn" onclick="navigateToPage(3)">Next ❤️</button>
 </div>
 
-<!-- PAGE 3: INTERACTIVE LOVE GAUGE CHALLENGE -->
+<!-- PAGE 3: LOVE SLIDER -->
 <div id="page3" class="page">
     <h1>How much do you care? 🤔</h1>
     <p class="subtitle">Be honest! Lock in your score below:</p>
     <div class="slider-container">
         <div id="gaugeValue">50%</div>
-        <input type="range" min="0" max="100" value="50" class="love-slider" id="loveSlider" oninput="updateSlider(this.value)">
+        <input type="range" min="0" max="100" value="50" class="love-slider" id="loveSlider" oninput="handleSliderChange(this.value)">
     </div>
-    <button class="btn" onclick="verifySlider()">Unlock Next Screen ✨</button>
+    <button class="btn" onclick="checkSliderScore()">Unlock Next Screen ✨</button>
 </div>
 
-<!-- PAGE 4: RUNAWAY BUTTON SCENE -->
+<!-- PAGE 4: RUNAWAY NO BUTTON -->
 <div id="page4" class="page">
     <h1>Do You Love Me? 😂</h1>
     <div id="loveGame">
-        <button class="btn" id="yesBtn" onclick="yesLove(event)">YES ❤️</button>
+        <button class="btn" id="yesBtn" onclick="handleLoveAccept(event)">YES ❤️</button>
         <button class="btn" id="noBtn">NO 😒</button>
     </div>
-    <button class="btn" onclick="showPage(5)" style="margin-top: 100px; background: transparent; color: white; border: 1px solid white;">Skip 😭</button>
+    <button class="btn" onclick="navigateToPage(5)" style="margin-top: 100px; background: transparent; color: white; border: 1px solid white;">Skip 😭</button>
 </div>
 
-<!-- PAGE 5: SYNCED LYRICS PRESENTATION -->
+<!-- PAGE 5: MUSIC LYRICS -->
 <div id="page5" class="page">
     <h1>Wanna Be Yours 🎵</h1>
     <div class="lyric-box">
@@ -287,10 +287,10 @@ p.subtitle {
         <div class="lyric-line" id="lyric2">"Every single track reminds me of your smile."</div>
         <div class="lyric-line" id="lyric3">You'll always be special 🌷🖤</div>
     </div>
-    <button class="btn" onclick="showPage(6)">Final ❤️</button>
+    <button class="btn" onclick="navigateToPage(6)">Final ❤️</button>
 </div>
 
-<!-- PAGE 6: CHRONO TYPEWRITER PARAGRAPH -->
+<!-- PAGE 6: CHRONO TYPEWRITER -->
 <div id="page6" class="page">
     <h1>For RUGVEDU ❤️</h1>
     <div id="typingContainer"><span id="textContent"></span><span class="cursor" id="cursor">|</span></div>
@@ -298,9 +298,6 @@ p.subtitle {
 </div>
 
 <script>
-// ==========================================
-// CONFIGURATION BLOCK
-// ==========================================
 const letterMessage = `No matter where life takes us,
 you'll always have a special place in my heart.
 
@@ -309,26 +306,28 @@ the late-night conversations,
 and the absolute happiness you bring. 🌷✨`;
 
 const typingSpeed = 50; 
-// ==========================================
+const audioPlayer = document.getElementById('bgMusic');
 
-const audio = document.getElementById('bgMusic');
-
-function startExperience() {
-    // PROTECTED AUDIO HANDLER: Safely plays sound without letting errors block navigation
+// CACHE BUSTER LAUNCH ENGINE
+function forceLaunchExperience() {
+    console.log("Forced manual execution triggered.");
+    
+    // Safely fire audio with absolute insulation fallback hooks
     try {
-        let playPromise = audio.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(e => {
-                console.log("Audio file missing or gesture block caught safely: ", e);
-            });
+        if(audioPlayer) {
+            audioPlayer.muted = false;
+            let playPromise = audioPlayer.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(err => console.log("Audio waiting for user gesture.", err));
+            }
         }
-    } catch(err) {
-        console.log("Audio engine bypass triggered:", err);
+    } catch(e) {
+        console.log("Audio play bypassed safely.");
     }
     
-    // Always navigate instantly, even if the song file fails to load
-    showPage(2); 
+    // Core structural routing navigation execution line
+    navigateToPage(2);
 }
 
-function showPage(num){
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+function navigateToPage(num){
+    console.log("Navigating to setup layout index: " + num);
