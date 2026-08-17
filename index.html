@@ -314,23 +314,21 @@ const typingSpeed = 50;
 const audio = document.getElementById('bgMusic');
 
 function startExperience() {
-    audio.play().catch(e => console.log("Audio contextual lock active: ", e));
-    showPage(2); // Jump seamlessly to the Memories Gallery page layout
+    // PROTECTED AUDIO HANDLER: Safely plays sound without letting errors block navigation
+    try {
+        let playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(e => {
+                console.log("Audio file missing or gesture block caught safely: ", e);
+            });
+        }
+    } catch(err) {
+        console.log("Audio engine bypass triggered:", err);
+    }
+    
+    // Always navigate instantly, even if the song file fails to load
+    showPage(2); 
 }
 
 function showPage(num){
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    const targetPage = document.getElementById('page'+num);
-    if(targetPage) {
-        targetPage.classList.add('active');
-        window.scrollTo(0,0);
-        
-        if(num === 5) { triggerLyrics(); }
-        if(num === 6) { startTypewriter(); }
-    }
-}
-
-// Love Gauge Logic Functions
-function updateSlider(val) {
-    document.getElementById("gaugeValue").textContent = val + "%";
-}
