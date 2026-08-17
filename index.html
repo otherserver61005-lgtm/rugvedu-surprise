@@ -6,211 +6,315 @@
 <title>RUGVEDU 🫀</title>
 
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+/* Modern Fluid Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, Arial, sans-serif; }
 
 body {
-    background: linear-gradient(135deg, #021024, #052659, #5483B3);
+    background: #020714;
     color: white;
     text-align: center;
     overflow-x: hidden;
     min-height: 100vh;
+    position: relative;
 }
 
+/* Twinkling Star Canvas Background Layer */
+.stars-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, #06163a 0%, #020714 100%);
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; transform: scale(1.2); } }
+
+/* Main Section Layout Container */
 .page {
     min-height: 100vh;
     display: none;
-    padding: 40px 20px;
+    padding: 50px 20px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
+    z-index: 2;
 }
 
 .active { display: flex; }
 
 h1 {
-    font-size: 42px;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-    margin-bottom: 20px;
+    font-size: 46px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: linear-gradient(to right, #ffffff, #ffb7c5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 40px rgba(255, 183, 197, 0.3);
+    margin-bottom: 25px;
 }
 
+p.subtitle {
+    font-size: 20px;
+    color: #cbd5e1;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+/* Premium Rounded Glow Buttons */
 .btn {
-    padding: 15px 30px;
+    padding: 16px 38px;
     border: none;
-    border-radius: 30px;
+    border-radius: 50px;
     font-size: 18px;
     cursor: pointer;
-    margin-top: 20px;
-    background-color: #ffffff;
+    margin-top: 25px;
+    background: linear-gradient(135deg, #ffffff, #f0f4f8);
     color: #052659;
-    font-weight: bold;
-    transition: transform 0.2s, background-color 0.2s;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
 
 .btn:hover {
-    transform: scale(1.05);
-    background-color: #f0f0f0;
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(255, 183, 197, 0.2);
 }
 
+/* Polaroid Stack Gallery Engine Layout */
 .gallery {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    max-width: 1000px;
-    margin: 20px auto;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 30px auto;
 }
 
-.gallery img {
-    width: 220px;
-    height: 220px;
+.polaroid {
+    background: white;
+    padding: 12px 12px 30px 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    border-radius: 4px;
+    transition: transform 0.4s ease;
+}
+
+.polaroid img {
+    width: 210px;
+    height: 210px;
     object-fit: cover;
-    border-radius: 20px;
-    box-shadow: 0 0 20px rgba(255,255,255,.3);
-    animation: float 3s ease-in-out infinite;
+    border: 1px solid #eee;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
+.polaroid:nth-child(odd) { transform: rotate(-3deg); }
+.polaroid:nth-child(even) { transform: rotate(3deg); }
+.polaroid:hover { transform: rotate(0deg) scale(1.1) translateY(-10px); z-index: 10; }
 
+/* Game Framework Engine */
 #loveGame {
     position: relative;
-    height: 250px;
+    height: 280px;
     width: 100%;
-    max-width: 400px;
+    max-width: 450px;
     margin: 20px auto;
 }
 
 #noBtn {
     position: absolute;
-    left: 60%;
-    top: 20px;
-    transition: all 0.2s ease;
+    left: 65%; top: 30px;
+    transition: all 0.25s cubic-bezier(0.19, 1, 0.22, 1);
+    background: #e2e8f0;
+    color: #4a5568;
 }
 
 #yesBtn {
     position: absolute;
-    left: 20%;
-    top: 20px;
+    left: 15%; top: 30px;
+    background: linear-gradient(135deg, #ff4b6b, #ff7b92);
+    color: white;
 }
 
-#bgMusic {
-    display: none;
+/* Interactive Love Slider Meter Components */
+.slider-container {
+    width: 100%;
+    max-width: 320px;
+    margin: 30px auto;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Typing Effect Container Layout */
+.love-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #4a5568;
+    outline: none;
+    margin-top: 15px;
+}
+
+.love-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #ff4b6b;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff4b6b;
+    transition: transform 0.1s;
+}
+
+.love-slider::-webkit-slider-thumb:active { transform: scale(1.3); }
+
+#gaugeValue {
+    font-size: 36px;
+    font-weight: 700;
+    color: #ff7b92;
+    margin-top: 10px;
+}
+
+#bgMusic { display: none; }
+
+/* Dynamic Lyric Presentation Setup Layout */
+.lyric-box { max-width: 500px; margin: 25px auto; min-height: 120px; }
+.lyric-line {
+    font-size: 24px; font-weight: 300; font-style: italic;
+    opacity: 0; transform: translateY(10px);
+    transition: all 0.8s ease; margin-bottom: 12px; color: #cbd5e1;
+}
+.lyric-line.visible {
+    opacity: 1; transform: translateY(0); color: #ffffff;
+    text-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
+
+/* Typewriter Engine Styles */
 #typingContainer {
-    max-width: 600px;
-    min-height: 120px; /* Prevents layout layout shifting while writing */
-    line-height: 1.8;
-    font-size: 18px;
-    margin: 20px auto;
-    text-align: center;
-    white-space: pre-line; /* Keeps line breaks cleanly rendered */
+    max-width: 650px; min-height: 140px; line-height: 1.9;
+    font-size: 20px; margin: 25px auto; font-weight: 300;
+    white-space: pre-line; color: #f1f5f9;
 }
+.cursor { display: inline-block; width: 3px; background-color: #fff; margin-left: 5px; animation: blink 0.8s infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+#foreverText { opacity: 0; transition: opacity 1.5s ease; margin-top: 35px; font-size: 32px; }
 
-/* Blinking cursor effect */
-.cursor {
-    display: inline-block;
-    width: 3px;
-    background-color: #fff;
-    margin-left: 4px;
-    animation: blink 0.8s infinite;
+/* Premium Falling Petal Items */
+.petal {
+    position: fixed; top: -50px; pointer-events: none; z-index: 3;
+    background: linear-gradient(135deg, #ffb7c5, #ff9cae);
+    border-radius: 100% 0 100% 100%; opacity: 0.6;
+    animation: fall 6s linear forwards;
 }
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-}
-
-#foreverText {
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-    margin-top: 30px;
-}
-
-.heart {
-    position: fixed;
-    top: -20px;
-    font-size: 20px;
-    pointer-events: none;
-    animation: fall 5s linear forwards;
-}
-
 @keyframes fall {
-    to {
-        transform: translateY(105vh) rotate(360deg);
-    }
+    0% { transform: translateY(0) translateX(0) rotate(0deg); }
+    100% { transform: translateY(105vh) translateX(120px) rotate(450deg); }
+}
+
+/* Burst Particle Items Engine */
+.burst-heart {
+    position: fixed; pointer-events: none; z-index: 999;
+    font-size: 24px; animation: explode 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+@keyframes explode {
+    0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(var(--mx), var(--my)) scale(1.2); opacity: 0; }
 }
 </style>
 </head>
 <body>
 
+<!-- FLOATING CELESTIAL BACKGROUND CANVAS -->
+<div class="stars-bg" id="starsBg"></div>
+
 <audio id="bgMusic" loop>
     <source src="song.mp3" type="audio/mpeg">
 </audio>
 
+<!-- PAGE 1: DEEP GLOW HERO INTRO -->
 <div id="page1" class="page active">
     <h1>RUGVEDU 🫀</h1>
-    <p>The prettiest girl ever ❤️</p>
+    <p class="subtitle">The prettiest girl ever ❤️</p>
     <button class="btn" onclick="startExperience()">Enter 🌷</button>
 </div>
 
+<!-- PAGE 2: POLAROID PHOTO ALBUM -->
 <div id="page2" class="page">
     <h1>Beautiful Memories 📸</h1>
     <div class="gallery">
-        <img src="cover.jpg" alt="Cover">
-        <img src="photo1.jpg" alt="Memory 1">
-        <img src="photo2.jpg" alt="Memory 2">
-        <img src="photo3.jpg" alt="Memory 3">
-        <img src="childhood.jpg" alt="Childhood">
+        <div class="polaroid"><img src="cover.jpg"><p style="color:#333; margin-top:8px; font-size:14px; font-family:cursive;">Cover ✨</p></div>
+        <div class="polaroid"><img src="photo1.jpg"><p style="color:#333; margin-top:8px; font-size:14px; font-family:cursive;">Moments 💕</p></div>
+        <div class="polaroid"><img src="photo2.jpg"><p style="color:#333; margin-top:8px; font-size:14px; font-family:cursive;">Together 🧸</p></div>
+        <div class="polaroid"><img src="photo3.jpg"><p style="color:#333; margin-top:8px; font-size:14px; font-family:cursive;">Smiles 😊</p></div>
+        <div class="polaroid"><img src="childhood.jpg"><p style="color:#333; margin-top:8px; font-size:14px; font-family:cursive;">Little You 🍼</p></div>
     </div>
     <button class="btn" onclick="showPage(3)">Next ❤️</button>
 </div>
 
+<!-- NEW PAGE 3: INTERACTIVE LOVE GAUGE CHALLENGE -->
 <div id="page3" class="page">
+    <h1>How much do you care? 🤔</h1>
+    <p class="subtitle">Be honest! Lock in your score below:</p>
+    <div class="slider-container">
+        <div id="gaugeValue">50%</div>
+        <input type="range" min="0" max="100" value="50" class="love-slider" id="loveSlider" oninput="updateSlider(this.value)">
+    </div>
+    <button class="btn" onclick="verifySlider()">Unlock Next Screen ✨</button>
+</div>
+
+<!-- PAGE 4: RUNAWAY BUTTON SCENE -->
+<div id="page4" class="page">
     <h1>Do You Love Me? 😂</h1>
     <div id="loveGame">
-        <button class="btn" id="yesBtn" onclick="yesLove()">YES ❤️</button>
+        <button class="btn" id="yesBtn" onclick="yesLove(event)">YES ❤️</button>
         <button class="btn" id="noBtn">NO 😒</button>
     </div>
-    <button class="btn" onclick="showPage(4)" style="margin-top: 100px;">Skip 😭</button>
+    <button class="btn" onclick="showPage(5)" style="margin-top: 100px; background: transparent; color: white; border: 1px solid white;">Skip 😭</button>
 </div>
 
-<div id="page4" class="page">
-    <h1>Wanna Be Yours 🎵</h1>
-    <p style="margin-top:25px; font-size:24px; font-style: italic;">"Never thought I'd find someone like you..."</p>
-    <p style="margin-top:15px; font-size:20px">You'll always be special 🌷🖤</p>
-    <button class="btn" onclick="showPage(5)">Final ❤️</button>
-</div>
-
+<!-- PAGE 5: SYNCED LYRICS PRESENTATION -->
 <div id="page5" class="page">
+    <h1>Wanna Be Yours 🎵</h1>
+    <div class="lyric-box">
+        <div class="lyric-line" id="lyric1">"Never thought I'd find someone like you..."</div>
+        <div class="lyric-line" id="lyric2">"Every single track reminds me of your smile."</div>
+        <div class="lyric-line" id="lyric3">You'll always be special 🌷🖤</div>
+    </div>
+    <button class="btn" onclick="showPage(6)">Final ❤️</button>
+</div>
+
+<!-- PAGE 6: CHRONO TYPEWRITER PARAGRAPH -->
+<div id="page6" class="page">
     <h1>For RUGVEDU ❤️</h1>
-    
-    <!-- Real-time dynamic typewriter injection container -->
     <div id="typingContainer"><span id="textContent"></span><span class="cursor" id="cursor">|</span></div>
-    
     <h2 id="foreverText">Forever? ❤️</h2>
 </div>
 
 <script>
 // ==========================================
-// CONFIGURATION: CUSTOMIZE YOUR MESSAGE HERE
+// CONFIGURATION BLOCK
 // ==========================================
 const letterMessage = `No matter where life takes us,
 you'll always have a special place in my heart.
-Thank you for all the smiles,
-memories and happiness. 🌷✨`;
 
-const typingSpeed = 50; // Milliseconds per letter character (Lower is faster)
+Thank you for all the smiles,
+the late-night conversations,
+and the absolute happiness you bring. 🌷✨`;
+
+const typingSpeed = 50; 
 // ==========================================
 
 const audio = document.getElementById('bgMusic');
 
 function startExperience() {
-    audio.play().catch(error => console.log("Audio play pending step interaction: ", error));
+    audio.play().catch(e => console.log("Audio contextual lock active: ", e));
     showPage(2);
 }
 
@@ -221,87 +325,14 @@ function showPage(num){
         targetPage.classList.add('active');
         window.scrollTo(0,0);
         
-        // Trigger typewriter action loop if she enters Page 5
-        if(num === 5) {
-            startTypewriter();
-        }
+        if(num === 5) { triggerLyrics(); }
+        if(num === 6) { startTypewriter(); }
     }
 }
 
-function yesLove(){
-    alert("YAYYYY ❤️😭");
-    
-    // Replace YOUR_EMAIL_HERE with your real email to activate text tracking alerts
-    fetch('https://formsubmit.co', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            Message: "RUGVEDU CLICKED YES! 🎉❤️",
-            Timestamp: new Date().toLocaleString()
-        })
-    });
-
-    showPage(4); 
+// Love Gauge Logic Functions
+function updateSlider(val) {
+    document.getElementById("gaugeValue").textContent = val + "%";
 }
 
-// Custom Non-Blocking Typewriter Engine Block
-let charIndex = 0;
-let typewriterTriggered = false;
-
-function startTypewriter() {
-    if (typewriterTriggered) return; // Block duplication triggers if clicked backwards
-    typewriterTriggered = true;
-    typeNextChar();
-}
-
-function typeNextChar() {
-    if (charIndex < letterMessage.length) {
-        document.getElementById("textContent").textContent += letterMessage.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeNextChar, typingSpeed);
-    } else {
-        // Hide trailing layout elements gracefully & reveal final headings
-        document.getElementById("cursor").style.display = "none";
-        document.getElementById("foreverText").style.opacity = "1";
-    }
-}
-
-const noBtn = document.getElementById('noBtn');
-const loveGame = document.getElementById('loveGame');
-
-function moveNoButton() {
-    const maxX = loveGame.clientWidth - noBtn.clientWidth;
-    const maxY = loveGame.clientHeight - noBtn.clientHeight;
-    
-    const randomX = Math.max(0, Math.floor(Math.random() * maxX));
-    const randomY = Math.max(0, Math.floor(Math.random() * maxY));
-    
-    noBtn.style.left = randomX + 'px';
-    noBtn.style.top = randomY + 'px';
-}
-
-noBtn.addEventListener('mouseover', moveNoButton);
-noBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault(); 
-    moveNoButton();
-});
-
-// Smooth Performance Floating Background Particles
-setInterval(() => {
-    if (document.hidden) return; 
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.transform = `scale(${Math.random() * 0.6 + 0.6})`; 
-    
-    document.body.appendChild(heart);
-    
-    heart.addEventListener('animationend', () => {
-        heart.remove();
-    });
-}, 600);
-</script>
-
-</body>
-</html>
+function verifySlider() {
