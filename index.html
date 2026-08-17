@@ -1,191 +1,225 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RUGVEDU 🫀</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
 
-body{
-background:linear-gradient(135deg,#021024,#052659,#5483B3);
-color:white;
-text-align:center;
-overflow-x:hidden;
+body {
+    background: linear-gradient(135deg, #021024, #052659, #5483B3);
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
-.page{
-min-height:100vh;
-display:none;
-padding:30px 20px;
-justify-content:center;
-align-items:center;
-flex-direction:column;
+.page {
+    min-height: 100vh;
+    display: none;
+    padding: 40px 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
-.active{display:flex;}
+.active { display: flex; }
 
-h1{
-font-size:42px;
-text-shadow:0 0 20px #fff;
-margin-bottom:20px;
+h1 {
+    font-size: 42px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    margin-bottom: 20px;
 }
 
-.btn{
-padding:15px 30px;
-border:none;
-border-radius:30px;
-font-size:18px;
-cursor:pointer;
-margin-top:20px;
+.btn {
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 20px;
+    background-color: #ffffff;
+    color: #052659;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.2s;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-.gallery img{
-width:260px;
-max-width:90%;
-border-radius:20px;
-margin:15px;
-box-shadow:0 0 20px rgba(255,255,255,.4);
-animation:float 3s ease-in-out infinite;
+.btn:hover {
+    transform: scale(1.05);
+    background-color: #f0f0f0;
 }
 
-@keyframes float{
-50%{transform:translateY(-10px);}
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    max-width: 1000px;
+    margin: 20px auto;
 }
 
-#loveGame{
-position:relative;
-height:300px;
-width:100%;
+.gallery img {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(255,255,255,.3);
+    animation: float 3s ease-in-out infinite;
 }
 
-#noBtn{
-position:absolute;
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
 }
 
-audio{
-width:300px;
-max-width:90%;
-margin-top:20px;
+#loveGame {
+    position: relative;
+    height: 250px;
+    width: 100%;
+    max-width: 400px;
+    margin: 20px auto;
 }
 
-.heart{
-position:fixed;
-top:-20px;
-font-size:20px;
-animation:fall 5s linear infinite;
+#noBtn {
+    position: absolute;
+    left: 60%;
+    top: 20px;
+    transition: all 0.2s ease;
 }
 
-@keyframes fall{
-to{
-transform:translateY(110vh);
+#yesBtn {
+    position: absolute;
+    left: 20%;
+    top: 20px;
 }
+
+audio {
+    width: 300px;
+    max-width: 90%;
+    margin-top: 20px;
+}
+
+.heart {
+    position: fixed;
+    top: -20px;
+    font-size: 20px;
+    pointer-events: none;
+    animation: fall 5s linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(105vh) rotate(360deg);
+    }
 }
 </style>
 </head>
-
 <body>
 
 <div id="page1" class="page active">
-<h1>RUGVEDU 🫀</h1>
-<p>The prettiest girl ever ❤️</p>
-<button class="btn" onclick="showPage(2)">Enter 🌷</button>
+    <h1>RUGVEDU 🫀</h1>
+    <p>The prettiest girl ever ❤️</p>
+    <button class="btn" onclick="showPage(2)">Enter 🌷</button>
 </div>
 
 <div id="page2" class="page">
-<h1>Beautiful Memories 📸</h1>
-
-<div class="gallery">
-<img src="cover.jpg">
-<img src="photo1.jpg">
-<img src="photo2.jpg">
-<img src="photo3.jpg">
-<img src="childhood.jpg">
-</div>
-
-<button class="btn" onclick="showPage(3)">Next ❤️</button>
+    <h1>Beautiful Memories 📸</h1>
+    <div class="gallery">
+        <!-- Replace src with your real paths -->
+        <img src="cover.jpg" alt="Cover">
+        <img src="photo1.jpg" alt="Memory 1">
+        <img src="photo2.jpg" alt="Memory 2">
+        <img src="photo3.jpg" alt="Memory 3">
+        <img src="childhood.jpg" alt="Childhood">
+    </div>
+    <button class="btn" onclick="showPage(3)">Next ❤️</button>
 </div>
 
 <div id="page3" class="page">
-<h1>Do You Love Me? 😂</h1>
-
-<div id="loveGame">
-<button class="btn" onclick="yesLove()">YES ❤️</button>
-<button class="btn" id="noBtn">NO 😒</button>
-</div>
-
-<button class="btn" onclick="showPage(4)">Skip 😭</button>
+    <h1>Do You Love Me? 😂</h1>
+    <div id="loveGame">
+        <button class="btn" id="yesBtn" onclick="yesLove()">YES ❤️</button>
+        <button class="btn" id="noBtn">NO 😒</button>
+    </div>
+    <button class="btn" onclick="showPage(4)" style="margin-top: 100px;">Skip 😭</button>
 </div>
 
 <div id="page4" class="page">
-<h1>Wanna Be Yours 🎵</h1>
-
-<audio controls>
-<source src="song.mp3" type="audio/mpeg">
-</audio>
-
-<p style="margin-top:25px;font-size:20px">
-You'll always be special 🌷🖤
-</p>
-
-<button class="btn" onclick="showPage(5)">Final ❤️</button>
+    <h1>Wanna Be Yours 🎵</h1>
+    <audio controls>
+        <source src="song.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <p style="margin-top:25px; font-size:20px">You'll always be special 🌷🖤</p>
+    <button class="btn" onclick="showPage(5)">Final ❤️</button>
 </div>
 
 <div id="page5" class="page">
-<h1>For RUGVEDU ❤️</h1>
-
-<p style="max-width:600px;line-height:1.8">
-No matter where life takes us,
-you'll always have a special place in my heart.
-Thank you for all the smiles,
-memories and happiness. 🌷✨
-</p>
-
-<h2 style="margin-top:30px">
-Forever? ❤️
-</h2>
+    <h1>For RUGVEDU ❤️</h1>
+    <p style="max-width:600px; line-height:1.8; font-size: 18px; margin-top: 20px;">
+        No matter where life takes us, you'll always have a special place in my heart. 
+        Thank you for all the smiles, memories and happiness. 🌷✨
+    </p>
+    <h2 style="margin-top:30px">Forever? ❤️</h2>
 </div>
 
 <script>
-
 function showPage(num){
-document.querySelectorAll('.page')
-.forEach(p=>p.classList.remove('active'));
-
-document.getElementById('page'+num)
-.classList.add('active');
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const targetPage = document.getElementById('page'+num);
+    if(targetPage) {
+        targetPage.classList.add('active');
+        window.scrollTo(0,0);
+    }
 }
 
 function yesLove(){
-alert("YAYYYY ❤️😭");
+    alert("YAYYYY ❤️😭");
+    showPage(4); // Automatically takes her to the song page on agreement!
 }
 
-const noBtn=document.getElementById('noBtn');
+const noBtn = document.getElementById('noBtn');
+const loveGame = document.getElementById('loveGame');
 
-noBtn.addEventListener('mouseover',()=>{
-let x=Math.random()*250;
-let y=Math.random()*180;
+function moveNoButton() {
+    // Keeps calculation bounded cleanly inside the parent game box element container boundaries
+    const maxX = loveGame.clientWidth - noBtn.clientWidth;
+    const maxY = loveGame.clientHeight - noBtn.clientHeight;
+    
+    const randomX = Math.max(0, Math.floor(Math.random() * maxX));
+    const randomY = Math.max(0, Math.floor(Math.random() * maxY));
+    
+    noBtn.style.left = randomX + 'px';
+    noBtn.style.top = randomY + 'px';
+}
 
-noBtn.style.left=x+'px';
-noBtn.style.top=y+'px';
+// Fixed for Desktop & Mobile responsiveness 
+noBtn.addEventListener('mouseover', moveNoButton);
+noBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevents clicking on mobile touch devices
+    moveNoButton();
 });
 
-setInterval(()=>{
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤️";
-
-heart.style.left=Math.random()*100+"vw";
-
-document.body.appendChild(heart);
-
-setTimeout(()=>{
-heart.remove();
-},5000);
-
-},500);
-
+// Optimized memory handling for floating background decorations
+setInterval(() => {
+    if (document.hidden) return; // Pauses tab engine overhead if backgrounded
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    // Varied sizing for depth illusion layout
+    heart.style.transform = `scale(${Math.random() * 0.6 + 0.6})`; 
+    
+    document.body.appendChild(heart);
+    
+    // Explicit clean animation tracking
+    heart.addEventListener('animationend', () => {
+        heart.remove();
+    });
+}, 600);
 </script>
 
 </body>
